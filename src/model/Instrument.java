@@ -6,6 +6,8 @@
 package model;
 
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
 
 /**
  *
@@ -51,6 +53,14 @@ public class Instrument {
     public void tri()
     {
         ///A CODER !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+        List<Fond> list = new ArrayList<>();
+        list.addAll(valeursFonds);
+        ComparableImplemente comparator = new ComparableImplemente() ;
+
+        Collection.sort(list, comparator); // use the comparator as much as u want
+        System.out.println(list);
+
+        ArrayList<Fond>
     }
 }
 

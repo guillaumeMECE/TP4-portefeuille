@@ -1,7 +1,9 @@
 package controller;
 
+import model.Portefeuille;
+
 public class TestPortefeuille {
-    private PorteFeuille pf;
+    private Portefeuille pf;
 
     public static void main(String[] args) {
         // write your code here
