@@ -6,8 +6,9 @@
 package model;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
-import java.util.List;
+import static jdk.nashorn.internal.objects.NativeArray.sort;
 
 /**
  *
@@ -52,15 +53,20 @@ public class Instrument {
     //tri 
     public void tri()
     {
-        ///A CODER !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-        List<Fond> list = new ArrayList<>();
-        list.addAll(valeursFonds);
+        //on créer notre tableau et notre comparateur
+        Fond[] tab = valeursFonds.toArray(new Fond[valeursFonds.size()]);
         ComparableImplemente comparator = new ComparableImplemente() ;
-
-        Collection.sort(list, comparator); // use the comparator as much as u want
-        System.out.println(list);
-
-        ArrayList<Fond>
+        
+        //on trie notre tableau avec notre comparateur
+        sort(tab, comparator);
+        
+        //on créer une arrayList tempon
+        ArrayList<Fond> sortedValeursFond = new ArrayList<>();
+        sortedValeursFond.addAll(Arrays.asList(tab)); 
+        
+        //on remets les valeurs de l'arrayList tempon dans l'arraylist de la classe.
+        valeursFonds = sortedValeursFond ;        
+        
     }
 }
 
