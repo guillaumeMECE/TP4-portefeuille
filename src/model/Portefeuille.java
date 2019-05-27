@@ -68,7 +68,9 @@ public class Portefeuille {
         Instrument o;
         ArrayList<Fond> arrayFond = new ArrayList<>();
         o = hmI.get(key);
+       // System.out.println("o:"+o);
         if (o == null) {
+            //System.out.println("Work");
             throw new InstrumentInexistant();
         }
         arrayFond = o.getValeurFonds();
@@ -91,17 +93,19 @@ public class Portefeuille {
     public void delFond(String key){
         try {
             searchFonds(key);
+
+            hmF.remove(key);
         } catch (FondInexistant fondInexistant) {
             fondInexistant.printStackTrace();
         }
-        hmF.remove(key);
     }
     public void delInstrument(String key){
         try {
             searchInstrument(key);
+            hmI.get(key).getValeurFonds().clear(); //clear fond de l'instrument
+            hmI.remove(key);
         } catch (InstrumentInexistant instrumentInexistant) {
             instrumentInexistant.printStackTrace();
         }
-        hmI.remove(key);
     }
 }
