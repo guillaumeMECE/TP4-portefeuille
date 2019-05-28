@@ -3,6 +3,7 @@ package controller;
 import model.Fond;
 import model.Instrument;
 import model.Portefeuille;
+import view.Statistique;
 
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -63,6 +64,8 @@ public class TestPortefeuille {
         } catch (InstrumentInexistant instrumentInexistant) {
             instrumentInexistant.printStackTrace();
         }
+        Statistique stat =new Statistique();
+        stat.displayInstrument(pf);
 
 
     }
