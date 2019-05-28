@@ -1,5 +1,6 @@
 package view;
 
+import controller.FondInexistant;
 import controller.InstrumentInexistant;
 import model.Fond;
 import model.Instrument;
@@ -15,6 +16,7 @@ public class Statistique {
     }
 
     public void displayInstrument(Portefeuille pf) {
+        System.out.println("DISPLAY INSTRUMENTS");
         double tot = 0;
         for (Map.Entry<String, Instrument> i : pf.getHmI().entrySet()) {
             System.out.print(i.getKey());
@@ -34,7 +36,30 @@ public class Statistique {
         }
     }
 
-    public void displayPourcentage() {
+    public void displayPourcentage(Portefeuille pf, String keyFond) throws FondInexistant, InstrumentInexistant {
+        System.out.println("DISPLAY POURCENTAGE");
+        double amountToFind = pf.searchFonds(keyFond);
+        int totFondInInstrument = 0;
+        int nbEqual = 0;
+        for (Map.Entry<String, Instrument> i : pf.getHmI().entrySet()) {
+            totFondInInstrument = pf.searchInstrument(i.getKey()).size();
+            System.out.print(i.getKey());
+            for (Fond f : pf.searchInstrument(i.getKey())) {
+                if (amountToFind == f.getAmount()) {
+                    nbEqual += 1;
+                }
+            }
+            System.out.println("Pourcentage d'Instrument ayant pour fond " + amountToFind + " : " + nbEqual * 100 / totFondInInstrument + "%");
+            nbEqual = 0; //on reinit le nb de fond egal pour le prochain instrument
+        }
+    }
 
+    public void displayFond(Portefeuille pf) {
+        System.out.println("DISPLAY Fond");
+        for (Map.Entry<String, Fond> i : pf.getHmF().entrySet()) {
+            System.out.print(i.getKey());
+            System.out.print(" à un montant de ");
+            System.out.println(i.getValue().getAmount());
+        }
     }
 }

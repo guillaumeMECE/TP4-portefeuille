@@ -10,6 +10,7 @@ import java.util.Scanner;
 
 public class TestPortefeuille {
     private static Portefeuille pf;
+    private static Statistique stat = new Statistique();
     private static Scanner sc = new Scanner(System.in);
 
     public static void main(String[] args) {
@@ -53,9 +54,12 @@ public class TestPortefeuille {
         double montant2 = sc.nextDouble();
         Fond f3 = new Fond(montant2);
 
+
         ///si je donne une mauvaise clef ca me laisse faire ATTENTION PROBLEME
 
         pf.addFondToInstrument(key2, f3);
+
+
         try {
             for (Fond f : pf.searchInstrument(key2)) {
                 // ATTENTION PROBLEME ca ne m'affiche qu'un seul fond
@@ -64,9 +68,52 @@ public class TestPortefeuille {
         } catch (InstrumentInexistant instrumentInexistant) {
             instrumentInexistant.printStackTrace();
         }
-        Statistique stat =new Statistique();
-        stat.displayInstrument(pf);
 
+        ///supprimer un fond depuis le portefeuille
+        System.out.println("suppression d'un fond du portefeuille");
+        stat.displayFond(pf);
+
+        for (int i = 0; i < 2; i++) {
+            System.out.print("creation d'un fond . Donnez sa clé :");
+            String key3;
+            sc.nextLine();
+            key3 = sc.nextLine();
+            System.out.print("Montant de fonds de l'instrument : ");
+            double montant3 = sc.nextDouble();
+            try {
+                pf.addFond(key3, montant3);
+            } catch (FondExistant ex) {
+                System.out.println(ex.getMessage());
+            }
+        }
+
+        stat.displayFond(pf);
+        System.out.print("suppression d'un fond . Donnez sa clé :");
+        String key4;
+        sc.nextLine();
+        key4 = sc.nextLine();
+        pf.delFond(key4);
+        stat.displayFond(pf);
+
+        ///supprimer un instrument depuis le portefeuille
+        System.out.println("suppression d'un instrument");
+        System.out.print("Donnez sa clé :");
+        String key5;
+        sc.nextLine();
+        key5 = sc.nextLine();
+        pf.delInstrument(key5);
+
+        stat.displayInstrument(pf);
+        try {
+            pf.addFond("tst", 10);
+            stat.displayPourcentage(pf, "tst");
+        } catch (FondExistant fondExistant) {
+            fondExistant.printStackTrace();
+        } catch (FondInexistant fondInexistant) {
+            fondInexistant.printStackTrace();
+        } catch (InstrumentInexistant instrumentInexistant) {
+            instrumentInexistant.printStackTrace();
+        }
 
     }
 }
