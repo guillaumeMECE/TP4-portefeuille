@@ -13,7 +13,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 /**
- * @author guillaume,helene
+ * @author guillaume, helene
  */
 public class Portefeuille {
     //attribut
@@ -29,8 +29,6 @@ public class Portefeuille {
     public Portefeuille(HashMap<String, Fond> _hmF, HashMap<String, Instrument> _hmI) {
         this.hmF = new HashMap<>(_hmF);
         this.hmI = new HashMap<>(_hmI);
-        /*this.hmF.putAll(_hmF);
-        this.hmI.putAll(_hmI);*/
     }
 
     //getter et setter
@@ -66,46 +64,48 @@ public class Portefeuille {
 
     public ArrayList<Fond> searchInstrument(String key) throws InstrumentInexistant {
         Instrument o;
-        ArrayList<Fond> arrayFond = new ArrayList<>();
+        ArrayList<Fond> arrayFond;
         o = hmI.get(key);
-       // System.out.println("o:"+o);
         if (o == null) {
-            //System.out.println("Work");
             throw new InstrumentInexistant();
         }
         arrayFond = o.getValeurFonds();
         return arrayFond;
     }
 
-    public void addFond(String key,double amount ) throws FondExistant {
+    public void addFond(String key, double amount) throws FondExistant {
         //Exception if key exist
-        if (hmF.containsKey(key)){
+        if (hmF.containsKey(key)) {
             throw new FondExistant();
         }
-        hmF.put(key,new Fond(amount));
+        hmF.put(key, new Fond(amount));
     }
-    public void addFondToInstrument(String key,Fond f ){
-        //Exception if key exist
-        if (!hmI.containsKey(key)){
+
+    public void addFondToInstrument(String key, Fond f) {
+        try {
+            searchInstrument(key);
             hmI.get(key).addFond(f);
+        } catch (InstrumentInexistant instrumentInexistant) {
+            System.out.println(instrumentInexistant.getMessage());
         }
     }
-    public void delFond(String key){
+
+    public void delFond(String key) {
         try {
             searchFonds(key);
-
             hmF.remove(key);
         } catch (FondInexistant fondInexistant) {
-            fondInexistant.printStackTrace();
+            System.out.println(fondInexistant.getMessage());
         }
     }
-    public void delInstrument(String key){
+
+    public void delInstrument(String key) {
         try {
             searchInstrument(key);
             hmI.get(key).getValeurFonds().clear(); //clear fond de l'instrument
             hmI.remove(key);
         } catch (InstrumentInexistant instrumentInexistant) {
-            instrumentInexistant.printStackTrace();
+            System.out.println(instrumentInexistant.getMessage());
         }
     }
 }

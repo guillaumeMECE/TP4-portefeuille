@@ -24,7 +24,6 @@ public class TestPortefeuille {
             ArrayList<Fond> aF = new ArrayList<>();
             aF = pf.searchInstrument(key);
         } catch (InstrumentInexistant e) {
-            //instrumentInexistant.printStackTrace();
             System.out.println(e.getMessage());
 
             Fond f2 = new Fond(montant);
@@ -32,7 +31,6 @@ public class TestPortefeuille {
             alF.add(f2);
             Instrument i = new Instrument(alF);
             pf.getHmI().put(key, i);
-            pf.addFondToInstrument(key, f2);
             System.out.println("Instrument est ajouté");
             try {
                 for (Fond f : pf.searchInstrument(key)) {
@@ -42,9 +40,8 @@ public class TestPortefeuille {
                 System.out.println(e2.getMessage());
             }
         }
-        
-        
-        
+
+
         //ajout d'un fond à un instrument
         System.out.print("ajout d'un fond à un instrument ");
         System.out.print("Clé de l'instrument : ");
@@ -54,19 +51,19 @@ public class TestPortefeuille {
         System.out.print("Montant de fonds de l'instrument : ");
         double montant2 = sc.nextDouble();
         Fond f3 = new Fond(montant2);
-        
+
         ///si je donne une mauvaise clef ca me laisse faire ATTENTION PROBLEME
+
         pf.addFondToInstrument(key2, f3);
         try {
             for (Fond f : pf.searchInstrument(key2)) {
                 // ATTENTION PROBLEME ca ne m'affiche qu'un seul fond
                 System.out.println(f.getAmount());
             }
-        } catch (InstrumentInexistant e3) {
-            System.out.println(e3.getMessage());
+        } catch (InstrumentInexistant instrumentInexistant) {
+            instrumentInexistant.printStackTrace();
         }
-        
-        
-        
+
+
     }
 }
