@@ -30,6 +30,7 @@ public class Statistique {
                     tot += f.getAmount();
                 }
                 System.out.println("Total : " + tot);
+                tot = 0;
             } catch (InstrumentInexistant instrumentInexistant) {
                 System.out.println(instrumentInexistant.getMessage());
             }
@@ -43,13 +44,12 @@ public class Statistique {
         int nbEqual = 0;
         for (Map.Entry<String, Instrument> i : pf.getHmI().entrySet()) {
             totFondInInstrument = pf.searchInstrument(i.getKey()).size();
-            System.out.print(i.getKey());
             for (Fond f : pf.searchInstrument(i.getKey())) {
                 if (amountToFind == f.getAmount()) {
                     nbEqual += 1;
                 }
             }
-            System.out.println("Pourcentage d'Instrument ayant pour fond " + amountToFind + " : " + nbEqual * 100 / totFondInInstrument + "%");
+            System.out.println("Le pourcentage de l'Instrument \"" + i.getKey() + "\" ayant pour fond " + amountToFind + " : " + nbEqual * 100 / totFondInInstrument + "%");
             nbEqual = 0; //on reinit le nb de fond egal pour le prochain instrument
         }
     }
